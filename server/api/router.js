@@ -6,6 +6,7 @@ import {
   upload,
   getProducts,
   getProductById,
+  deleteProductById,
 } from "./productHandler.js";
 import { sendEmail } from "./emailHandler.js";
 
@@ -30,5 +31,8 @@ router.get("/products", getProducts);
 
 // GET enpoint to retrieve products by id.
 router.get("/products/:id", getProductById);
+
+// DELETE endpoint to delete a product by id.
+router.delete("/products/:id", deleteProductById);
 
 export default router;
