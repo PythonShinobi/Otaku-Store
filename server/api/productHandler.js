@@ -110,3 +110,21 @@ export const getProductById = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
+/**
+ * Deletes a product by its ID from the database.
+ * @async
+ * @param {Express.Request} req - The Express request object.
+ * @param {Express.Response} res - The Express response object.
+ * @returns {Promise<void>} - A Promise that resolves once the product is deleted and a response is sent back.
+ */
+export const deleteProductById = async (req, res) => {
+  const { id } = req.params;
+  try {
+    await db.query("DELETE FROM products WHERE id = $1", [id]);
+    res.json({ message: `Product with ID ${id} deleted successfully` });
+  } catch (error) {
+    console.error("Error deleting product:", error.message);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
