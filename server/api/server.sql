@@ -27,6 +27,12 @@ DELETE FROM users;
 -- Reset the id sequence to start from 1.
 ALTER SEQUENCE users_id_seq RESTART WITH 1;
 
+-- Delete all records from the products table.
+DELETE FROM products;
+
+-- Reset the id sequence to start from 1.
+ALTER SEQUENCE products_id_seq RESTART WITH 1;
+
 -- Create the orders table
 CREATE TABLE orders (
   id SERIAL PRIMARY KEY,
