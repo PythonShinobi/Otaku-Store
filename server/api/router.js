@@ -5,7 +5,11 @@ import {
   createProduct, 
   upload
 } from "./productHandler.js";
+import { sendEmail } from "./emailHandler.js";
 
+/**
+ * Initializes the Express router for defining API routes.
+*/
 const router = Router();
 
 // Message to check if the server is working as expected.
@@ -15,5 +19,8 @@ router.get("/", (req, res) => {
 
 // POST endpoint to add products to the database.
 router.post("/add-product", upload, createProduct);
+
+// POST endpoint to send emails.
+router.post("/send-email", sendEmail);
 
 export default router;
