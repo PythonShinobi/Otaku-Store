@@ -7,6 +7,7 @@ import {
   getProducts,
   getProductById,
   deleteProductById,
+  getProductsByCategory
 } from "./productHandler.js";
 import { sendEmail } from "./emailHandler.js";
 
@@ -28,6 +29,9 @@ router.post("/send-email", sendEmail);
 
 // GET endpoint to retrieve products.
 router.get("/products", getProducts);
+
+// GET endpoint to retrieve products in similar categories.
+router.get("/products/category/:category", getProductsByCategory);
 
 // GET enpoint to retrieve products by id.
 router.get("/products/:id", getProductById);
