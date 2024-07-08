@@ -72,3 +72,23 @@ export const createProduct = async (req, res) => {
     res.status(500).send('Server Error');
   }
 }
+
+/**
+ * Fetches all products from the database and sends them in the response.
+ * @async
+ * @param {Express.Request} req - The Express request object.
+ * @param {Express.Response} res - The Express response object.
+ * @returns {Promise<void>} - A Promise that resolves once the products are fetched and a response is sent.
+ */
+export const getProducts = async (req, res) => {
+  try {
+    // Fetch data from the database.
+    const products = await db.query("SELECT * FROM products");
+    // Return the fetched products data.
+    res.json(products.rows);
+  } catch (error) {
+    console.error("Error fetching products:", error.message);
+    // Send an error response with a status code of 500 (Internal Server Error) and an error message.
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
