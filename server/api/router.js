@@ -3,7 +3,8 @@ import { Router } from "express";
 
 import {
   createProduct, 
-  upload
+  upload,
+  getProducts,
 } from "./productHandler.js";
 import { sendEmail } from "./emailHandler.js";
 
@@ -22,5 +23,8 @@ router.post("/add-product", upload, createProduct);
 
 // POST endpoint to send emails.
 router.post("/send-email", sendEmail);
+
+// GET endpoint to retrieve products.
+router.get("/products", getProducts);
 
 export default router;
