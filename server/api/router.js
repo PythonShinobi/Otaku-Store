@@ -5,6 +5,7 @@ import {
   createProduct, 
   upload,
   getProducts,
+  getProductById,
 } from "./productHandler.js";
 import { sendEmail } from "./emailHandler.js";
 
@@ -26,5 +27,8 @@ router.post("/send-email", sendEmail);
 
 // GET endpoint to retrieve products.
 router.get("/products", getProducts);
+
+// GET enpoint to retrieve products by id.
+router.get("/products/:id", getProductById);
 
 export default router;
