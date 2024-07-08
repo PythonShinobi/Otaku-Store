@@ -128,3 +128,21 @@ export const deleteProductById = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
+/**
+ * Retrieves product details by category from the database.
+ * @async
+ * @param {Express.Request} req - The Express request object.
+ * @param {Express.Response} res - The Express response object.
+ * @returns {Promise<void>} - A Promise that resolves once the products are fetched and a response is sent back.
+ */
+export const getProductsByCategory = async (req, res) => {
+  const { category } = req.params;
+  try {
+    const products = await db.query("SELECT * FROM products WHERE category = $1", [category]);
+    res.json(products.rows);
+  } catch (error) {
+    console.error("Error fetching products by category:", error.message);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
