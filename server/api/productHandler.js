@@ -92,3 +92,21 @@ export const getProducts = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
+/**
+ * Retrieves a product by its ID from the database.
+ * @async
+ * @param {Express.Request} req - The Express request object.
+ * @param {Express.Response} res - The Express response object.
+ * @returns {Promise<void>} - A Promise that resolves once the product data is retrieved and a response is sent back.
+ */
+export const getProductById = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const product = await db.query("SELECT * FROM products WHERE id = $1", [id]);
+    res.json(product.rows[0]);
+  } catch (error) {
+    console.error("Error fetching product:", error.message);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
