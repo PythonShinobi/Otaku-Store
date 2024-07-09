@@ -19,6 +19,11 @@ const Home = () => {
   const [showBackToTop, setShowBackToTop] = useState(false); // State to show Back to Top button
 
   useEffect(() => {
+    // Scroll to the top of the page when the component mounts.
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);  
+
+  useEffect(() => {
     const fetchProducts = async () => {
       try {
         const response = await axios.get(`${config.serverEndpoint}/products`);
