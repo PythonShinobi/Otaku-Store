@@ -9,6 +9,7 @@ import ProductDetailsPage from './product/ProductsDetailsPage';
 import Home from './home/Home';
 import About from './about/About';
 import ContactPage from './contact/Contact';
+import CategoryPage from './category-page/CategoryPage';
 import Cart from './cart/Cart';
 import Login from './login/login';
 import Register from './register/register';
@@ -32,6 +33,7 @@ const App = () => {
           <Route path="*" element={<PageNotFound />} />
           <Route path="/product/*" element={<PageNotFound />} />
           <Route path="/products" element={<ProductsPage />} />
+          <Route path="/category/:category" element={<CategoryPage />} />
           <Route path="/products/:id" element={<ProductDetailsPage />} />
           <Route path="/admin" element={<AdminPage />} />
           <Route 
