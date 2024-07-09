@@ -1,5 +1,6 @@
 // client/src/home/Home.jsx
 import React, { useState, useEffect } from "react";
+import { NavLink } from "react-router-dom";
 import axios from "axios";
 import Skeleton from 'react-loading-skeleton';
 import { Container, Typography, Grid, Card, CardMedia, CardContent, Fab } from "@mui/material";
@@ -57,7 +58,6 @@ const Home = () => {
       setShowBackToTop(false);
     }
   };
-
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
@@ -133,7 +133,18 @@ const CategorySection = ({ category }) => {
     <>
       <div className="category-section" style={{ marginBottom: "50px" }}>
         <Typography variant="h4" gutterBottom>
-          {loading ? <Skeleton width={200} /> : category}
+          {loading ? (
+            <Skeleton width={200} />
+          ) : (
+            <Typography variant="h4" component="div" className="category-title-link">
+              <NavLink                 
+                to={`/category/${category}`}                 
+                style={{ textDecoration: 'none', color: 'inherit' }} 
+              >
+                {category}
+              </NavLink>
+            </Typography>
+          )}
         </Typography>
         <Grid container spacing={4}>
           {loading ? (

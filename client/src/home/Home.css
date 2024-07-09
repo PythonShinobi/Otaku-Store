@@ -9,6 +9,17 @@
   margin-top: 70px; /* Adjust this value to increase or decrease the space */
 }
 
+.category-title-link {
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.2s ease;
+}
+
+.category-title-link:hover {
+  color: #007bff; /* Change this to the color you prefer */
+  text-decoration: underline;
+}
+
 .product-grid-item {
   display: flex;
 }
