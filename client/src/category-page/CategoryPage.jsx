@@ -10,12 +10,15 @@ import "./CategoryPage.css";
 import Navbar from "../navbar/Navbar";
 import Footer from "../footer/Footer";
 import config from "../config";
+import SearchBar from "../search-bar/SearchBar";
 
 const CategoryPage = () => {
   const { category } = useParams();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [showBackToTop, setShowBackToTop] = useState(false); // State to show Back to Top button  
+  const [showBackToTop, setShowBackToTop] = useState(false); // State to show Back to Top button
+  const [searchTerm, setSearchTerm] = useState(""); // State to hold search term
+  const [filteredProducts, setFilteredProducts] = useState([]); // State to hold filtered products
 
   useEffect(() => {
     // Scroll to the top of the page when the component mounts.
@@ -61,6 +64,39 @@ const CategoryPage = () => {
     }
   };
 
+  /**
+   * Handles the search functionality for filtering products based on a search term.
+   * Filters the products array based on whether the product name includes the search term,
+   * ignoring case sensitivity.
+   * Updates the state with the filtered products.
+   * 
+   * @param {string} searchTerm - The search term entered by the user.
+   */
+  const handleSearch = (searchTerm) => {
+    setSearchTerm(searchTerm); // Update search term state
+
+    if (searchTerm.trim() === "") {
+      setFilteredProducts(products);
+    } else {
+      const filtered = products.filter(product =>
+        product.name.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setFilteredProducts(filtered); // Update filtered products state
+    }
+  };
+
+  // Update filtered products whenever products or search term changes
+  useEffect(() => {
+    if (searchTerm.trim() === "") {
+      setFilteredProducts(products);
+    } else {
+      const filtered = products.filter(product =>
+        product.name.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setFilteredProducts(filtered);
+    }
+  }, [products, searchTerm]);
+
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
@@ -70,9 +106,12 @@ const CategoryPage = () => {
     <div className="category-page-container">
       <Navbar />
       <Container>
+        <SearchBar onSearch={handleSearch} />
+
         <Typography variant="h4" gutterBottom>
           {loading ? <Skeleton width={200} /> : category}
-        </Typography>
+        </Typography>        
+
         <Grid container spacing={4}>
           {loading ? (
             Array.from({ length: 6 }).map((_, index) => (
@@ -83,23 +122,31 @@ const CategoryPage = () => {
               </Grid>
             ))
           ) : (
-            products.map((product) => (
-              <Grid item key={product.id} xs={12} sm={6} md={4} className="product-grid-item">
-                <Card className="product-card" style={{ height: "100%" }}>
-                  <CardMedia
-                    component="img"
-                    height="370"
-                    image={product.image}
-                    alt={product.name}
-                  />
-                  <CardContent>
-                    <Typography variant="h6" component="div">
-                      {product.name}
-                    </Typography>                  
-                  </CardContent>
-                </Card>
+            filteredProducts.length > 0 ? (
+              filteredProducts.map((product) => (
+                <Grid item key={product.id} xs={12} sm={6} md={4} className="product-grid-item">
+                  <Card className="product-card" style={{ height: "100%" }}>
+                    <CardMedia
+                      component="img"
+                      height="370"
+                      image={product.image}
+                      alt={product.name}
+                    />
+                    <CardContent>
+                      <Typography variant="h6" component="div">
+                        {product.name}
+                      </Typography>                  
+                    </CardContent>
+                  </Card>
+                </Grid>
+              ))
+            ) : (
+              <Grid item xs={12}>
+                <Typography variant="body1" gutterBottom>
+                  No results found for "{searchTerm}"
+                </Typography>
               </Grid>
-            ))
+            )
           )}
         </Grid>
 
