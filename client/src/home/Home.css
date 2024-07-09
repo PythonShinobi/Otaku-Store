@@ -1,0 +1,28 @@
+.home-container {
+  margin-top: 30px;
+  margin-bottom: 80px;
+  top: 0;
+  z-index: 1100; /* Ensures the navbar is above other content */
+}
+
+.category-section {
+  margin-top: 70px; /* Adjust this value to increase or decrease the space */
+}
+
+.product-grid-item {
+  display: flex;
+}
+
+.product-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.back-to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000; /* Ensure it's above other content */
+}

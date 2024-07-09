@@ -1,0 +1,30 @@
+.admin-container {
+  margin-top: 20px; /* Adjust the value as needed */
+  margin-bottom: 20px; /* Adjust the value as needed */
+}
+
+.admin-container h1 {
+  margin-bottom: 20px;
+  text-decoration: underline;
+}
+
+.json-response {
+  background-color: #f4f4f4; /* Light gray background */
+  margin-top: 17px;
+  border-radius: 8px; /* Rounded corners */
+  padding: 20px; /* Padding around the content */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+}
+
+.json-response h3 {
+  font-size: 1.5rem; /* Larger font size for the title */
+  color: #333; /* Dark text color */
+  margin-bottom: 10px; /* Spacing below the title */
+}
+
+.json-response pre {
+  font-family: 'Courier New', Courier, monospace; /* Monospace font for better readability */
+  font-size: 1rem; /* Normal font size */
+  white-space: pre-wrap; /* Allow wrapping for long lines */
+  overflow-x: auto; /* Enable horizontal scrolling for long content */
+}
