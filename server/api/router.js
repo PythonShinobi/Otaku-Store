@@ -10,6 +10,10 @@ import {
   getProductsByCategory
 } from "./productHandler.js";
 import { sendEmail } from "./emailHandler.js";
+import getUser from "./getUser.js";
+import register from "./auth/register.js";
+import logout from "./auth/logout.js";
+import login from "./auth/login.js";
 
 /**
  * Initializes the Express router for defining API routes.
@@ -38,5 +42,17 @@ router.get("/products/:id", getProductById);
 
 // DELETE endpoint to delete a product by id.
 router.delete("/products/:id", deleteProductById);
+
+// Define the route for fetching user data.
+router.get('/user', getUser);
+
+// Define the POST /register endpoint
+router.post('/register', register);
+
+// Define the GET /logout endpoint.
+router.get("/logout", logout);
+
+// Define the POST /login endpoint
+router.post("/login", login);
 
 export default router;
