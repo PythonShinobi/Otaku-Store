@@ -1,11 +1,25 @@
-// server/api/email.js
+// server/api/emailHandler.js
 import nodemailer from "nodemailer";
 import env from "dotenv";
 
 env.config();
 
-// Create a Nodemailer transporter.
-const transporter = nodemailer.createTransport({
+/**
+ * Nodemailer Transporter Configuration
+ * 
+ * This code sets up a Nodemailer transporter using Gmail as the email service. 
+ * Nodemailer is a module for Node.js applications to allow email sending.
+ * 
+ * - The transporter is configured with the Gmail service.
+ * - It uses authentication details provided via environment variables.
+ * - `process.env.GMAIL` contains the email address used for sending emails.
+ * - `process.env.GMAIL_PASSWORD` contains the password or application-specific password for the Gmail account.
+ * 
+ * Usage:
+ * The transporter can be used to send emails from the configured Gmail account.
+ * Ensure that the environment variables `GMAIL` and `GMAIL_PASSWORD` are set correctly in your environment.
+ */
+export const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
     user: process.env.GMAIL,
@@ -32,13 +46,17 @@ transporter.verify((error, success) => {
 export const sendEmail = async (req, res) => {
   const { name, email, message } = req.body;
 
+  // Construct the email options
+  const mailOptions = {
+    from: email,
+    to: process.env.GMAIL,
+    subject: "New Contact Message",
+    text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`,
+  };
+
   try {
-    let info = await transporter.sendMail({
-      from: email,
-      to: process.env.GMAIL,
-      subject: "New Contact Message",
-      text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`,
-    });
+    // Send the email using the transporter and the constructed mailOptions
+    let info = await transporter.sendMail(mailOptions);
 
     console.log('Email sent:', info.messageId);
     res.send("Email has been sent✔.");
