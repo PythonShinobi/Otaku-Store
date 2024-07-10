@@ -73,7 +73,7 @@ const Login = async (req, res) => {
 
     // Create a session object with user information.
     const session = { ...updatedUser };    
-    console.log(session);
+    // console.log(session);
 
     // Set the login session using a custom function (likely setting a cookie or JWT)
     await setLoginSession(res, session);
