@@ -8,7 +8,6 @@ import { Add, Remove, Delete } from '@mui/icons-material';
 import './Cart.css';
 import Navbar from "../navbar/Navbar";
 import { addCart, delCart, removeCart } from "../redux/action";
-import config from "../config";
 
 const Cart = () => {
   const cart = useSelector((state) => state.handleCart);
@@ -50,7 +49,7 @@ const Cart = () => {
                         component="img"
                         alt={product.name}
                         height="240"                        
-                        image={`${config.serverEndpoint}/uploads/${product.image}`}
+                        image={product.image}
                         title={product.name}
                       />
                     </Grid>
@@ -71,7 +70,7 @@ const Cart = () => {
                           </IconButton>
                         </Grid>
                         <Grid item>
-                          <Typography variant="body1" component="div">${product.price} x {product.qty}</Typography>
+                          <Typography variant="body1" component="div">KSh {product.price} x {product.qty}</Typography>
                         </Grid>
                       </Grid>
                     </Grid>
@@ -85,10 +84,10 @@ const Cart = () => {
               <CardContent>
                 <Typography variant="h5" component="div">Order Summary</Typography>
                 <Divider sx={{ my: 2 }} />
-                <Typography variant="body1" component="div">Products ({totalItems}): ${Math.round(subtotal)}</Typography>
-                <Typography variant="body1" component="div">Shipping: ${shipping}</Typography>
+                <Typography variant="body1" component="div">Products ({totalItems}): KSh {Math.round(subtotal)}</Typography>
+                <Typography variant="body1" component="div">Shipping: KSh {shipping}</Typography>
                 <Typography variant="h6" component="div" sx={{ mt: 2 }}>
-                  Total: ${Math.round(subtotal + shipping)}
+                  Total: KSh {Math.round(subtotal + shipping)}
                 </Typography>
                 <Button variant="contained" color="primary" fullWidth component={Link} to="/checkout" sx={{ mt: 2 }}>
                   Go to Checkout
