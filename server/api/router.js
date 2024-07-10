@@ -14,6 +14,8 @@ import getUser from "./getUser.js";
 import register from "./auth/register.js";
 import logout from "./auth/logout.js";
 import login from "./auth/login.js";
+import Checkout from "./checkout.js";
+import Orders from "./orders.js";
 
 /**
  * Initializes the Express router for defining API routes.
@@ -54,5 +56,11 @@ router.get("/logout", logout);
 
 // Define the POST /login endpoint
 router.post("/login", login);
+
+// Define the POST /checkout endpoint.
+router.post("/checkout", Checkout);
+
+// Define the GET /orders endpoint.
+router.get("/orders", Orders);
 
 export default router;
