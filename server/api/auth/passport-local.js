@@ -7,7 +7,7 @@
 import Local from "passport-local";
 import bcrypt from "bcrypt";
 
-import { findUser } from "./user";
+import { findUser } from "./user.js";
 
 /**
  * This code defines a local authentication strategy using Passport.js.

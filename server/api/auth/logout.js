@@ -1,5 +1,5 @@
 // server/api/auth/logout.js
-import { removeTokenCookie } from "./auth-cookies";
+import { removeTokenCookie } from "./auth-cookies.js";
 
 const logout = async (req, res) => {
   try {
