@@ -136,6 +136,9 @@ const CategoryPage = () => {
                       <Typography variant="h6" component="div">
                         {product.name}
                       </Typography>                  
+                      <Typography variant="h7" component="div">
+                        KSh {product.price}
+                      </Typography>                  
                     </CardContent>
                   </Card>
                 </Grid>
