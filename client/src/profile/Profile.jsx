@@ -71,7 +71,7 @@ const UserProfile = () => {
                     Quantity: {order.quantity}
                   </Typography>
                   <Typography variant="body1" sx={{ textAlign: 'center' }}>
-                    Price: ${order.price}
+                    Price: KSh {order.price}
                   </Typography>
                 </CardContent>
               </Card>
