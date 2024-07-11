@@ -124,7 +124,8 @@ const CategorySection = ({ category }) => {
     const fetchCategoryProducts = async () => {
       try {
         const response = await axios.get(`${config.serverEndpoint}/products/category/${category}`);
-        setCategoryProducts(response.data);
+        // Limit to 3 products per category
+        setCategoryProducts(response.data.slice(0, 3));
         setLoading(false); // Set loading to false when data is fetched.
       } catch (error) {
         console.error(`Error fetching products for category ${category}:`, error.message);
