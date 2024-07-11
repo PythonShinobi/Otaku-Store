@@ -184,6 +184,9 @@ const ProductsPage = () => {
                         <Typography gutterBottom variant="h5" component="div">
                           {product.name.substring(0, 23)}...
                         </Typography>                    
+                        <Typography variant="h8" component="div">
+                          KSh {product.price}
+                        </Typography>                    
                         {/* Action buttons */}
                         <div className="d-flex justify-content-between mt-2">
                           <Link to={`/products/${product.id}`} style={{ textDecoration: 'none' }}>
