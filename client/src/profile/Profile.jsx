@@ -1,7 +1,7 @@
 // client/src/profile/Profile.jsx
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Container, Typography, Card, CardContent, Grid, Divider, Box } from '@mui/material';
+import { Container, Typography, Card, CardContent, Grid, Divider, Box, TextField, MenuItem } from '@mui/material';
 
 import "./Profile.css";
 import { useUser } from "../redux/hooks";
@@ -13,6 +13,7 @@ const UserProfile = () => {
   const user = useUser(); // Use the useUser hook to get the current user.
   const [orders, setOrders] = useState([]); // State to hold order items.
   const [productsMap, setProductsMap] = useState({}); // State to hold products mapping for quick lookup.
+  const [selectedDate, setSelectedDate] = useState(""); // State to hold the selected date for filtering.
 
   useEffect(() => {
     // Fetch the order items from the backend when the component mounts.
@@ -48,6 +49,19 @@ const UserProfile = () => {
     return date.toLocaleString();
   };
 
+  // Function to handle date change
+  const handleDateChange = (event) => {
+    setSelectedDate(event.target.value);
+  };
+
+  // Filter user orders by selected date
+  const filteredOrders = selectedDate
+    ? userOrders.filter(order => new Date(order.order_timestamp).toDateString() === new Date(selectedDate).toDateString())
+    : userOrders;
+
+  // Get unique order dates for filtering options
+  const uniqueOrderDates = [...new Set(userOrders.map(order => new Date(order.order_timestamp).toDateString()))];
+
   return (
     <div className="profile-container">
       <Navbar />
@@ -77,8 +91,26 @@ const UserProfile = () => {
           Order Items
         </Typography>
 
+        <TextField
+          select
+          label="Filter by Date"
+          value={selectedDate}
+          onChange={handleDateChange}
+          fullWidth
+          sx={{ mb: 2 }}
+        >
+          <MenuItem value="">
+            <em>All Dates</em>
+          </MenuItem>
+          {uniqueOrderDates.map((date, index) => (
+            <MenuItem key={index} value={date}>
+              {date}
+            </MenuItem>
+          ))}
+        </TextField>
+
         <Grid container spacing={2} sx={{ mt: 2 }}>
-          {userOrders.map((order, index) => (
+          {filteredOrders.map((order, index) => (
             <Grid item xs={12} key={index}>
               <Card sx={{ display: 'flex', mb: 2 }}>
                 {productsMap[order.product_id] && (
