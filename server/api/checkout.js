@@ -7,6 +7,15 @@ import { transporter } from "./emailHandler.js";
 
 env.config();
 
+/**
+ * Handles the checkout process when an order is placed.
+ * - Validates the user's email.
+ * - Retrieves the user ID from the database.
+ * - Inserts order details into the `orders` table.
+ * - Inserts each item from the cart into the `order_items` table.
+ * - Sends an order confirmation email to the user.
+ * - Returns a JSON response indicating the success or failure of the order placement.
+ */
 const Checkout = async (req, res) => {
   const { firstName, lastName, email, address, city, postalCode, cartItems } = req.body;
 
