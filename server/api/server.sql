@@ -46,7 +46,7 @@ CREATE TABLE orders (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Create the order_items table
+-- Create the order_items table with a timestamp column
 CREATE TABLE order_items (
   id SERIAL PRIMARY KEY,
   order_id INTEGER NOT NULL REFERENCES orders(id),
@@ -54,7 +54,8 @@ CREATE TABLE order_items (
   product_id INTEGER NOT NULL REFERENCES products(id),
   product_name VARCHAR(255) NOT NULL,
   quantity INTEGER NOT NULL,
-  price NUMERIC(10, 2) NOT NULL
+  price NUMERIC(10, 2) NOT NULL,
+  order_timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Delete all records from the order_items table.
