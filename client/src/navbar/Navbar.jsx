@@ -40,8 +40,8 @@ const Navbar = () => {
   };
   
   // console.log("User object:", user?.isadmin);
-  console.log("User object:", user?.username);
-  console.log("User object:", user?.email);
+  // console.log("User object:", user?.username);
+  // console.log("User object:", user?.email);
 
   // Show a logged in user their profile.
   const showProfile = async () => {

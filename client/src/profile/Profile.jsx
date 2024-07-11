@@ -1,4 +1,3 @@
-// client/src/profile/Profile.jsx
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Container, Typography, Card, CardContent, Grid, Divider } from '@mui/material';
@@ -12,6 +11,7 @@ import config from "../config";
 const UserProfile = () => {
   const user = useUser(); // Use the useUser hook to get the current user.
   const [orders, setOrders] = useState([]); // State to hold order items.
+  const [productsMap, setProductsMap] = useState({}); // State to hold products mapping for quick lookup.
 
   useEffect(() => {
     // Fetch the order items from the backend when the component mounts.
@@ -19,6 +19,17 @@ const UserProfile = () => {
       try {
         const response = await axios.get(`${config.serverEndpoint}/orders`, { withCredentials: true });
         setOrders(response.data.orders);
+
+        // Fetch products to create a mapping for quick lookup
+        const productsResponse = await axios.get(`${config.serverEndpoint}/products`);
+        const products = productsResponse.data;
+        const productsMapping = {};
+        products.forEach(product => {
+          productsMapping[product.id] = product;
+        });
+        setProductsMap(productsMapping);
+        // console.log(productsMap[1]);
+        // console.log(orders);
       } catch (error) {
         console.error("Error fetching orders:", error);
       }
@@ -64,15 +75,18 @@ const UserProfile = () => {
             <Grid item xs={12} sm={12} md={6} key={index} sx={{ display: 'flex', justifyContent: 'center' }}>
               <Card sx={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', maxWidth: '400px' }}>
                 <CardContent sx={{ flex: 1 }}>
+                  {productsMap[order.product_id] && (
+                    <img src={productsMap[order.product_id].image} alt={order.product_name} style={{ maxWidth: '100%', marginTop: '10px' }} />
+                  )}
                   <Typography variant="h6" component="h3" sx={{ textAlign: 'center' }}>
                     {order.product_name}
                   </Typography>
                   <Typography variant="body1" sx={{ textAlign: 'center' }}>
-                    Quantity: {order.quantity}
+                    Qty: {order.quantity}
                   </Typography>
                   <Typography variant="body1" sx={{ textAlign: 'center' }}>
-                    Price: KSh {order.price}
-                  </Typography>
+                    KSh {order.price}
+                  </Typography>                                                                
                 </CardContent>
               </Card>
             </Grid>
