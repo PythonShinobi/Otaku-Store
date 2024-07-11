@@ -69,8 +69,15 @@ const UserProfile = () => {
     ? userOrders.filter(order => new Date(order.order_timestamp).toDateString() === new Date(selectedDate).toDateString())
     : userOrders;
 
+  // Sort orders by order timestamp (newest first)
+  filteredOrders.sort(
+    (a, b) => new Date(b.order_timestamp) - new Date(a.order_timestamp)
+  );
+
   // Get unique order dates for filtering options
-  const uniqueOrderDates = [...new Set(userOrders.map(order => new Date(order.order_timestamp).toDateString()))];
+  const uniqueOrderDates = [...new Set(
+    userOrders.map(order => new Date(order.order_timestamp).toDateString())
+  )];
 
   return (
     <div className="profile-container">
@@ -125,7 +132,11 @@ const UserProfile = () => {
               <Card sx={{ display: 'flex', mb: 2 }}>
                 {productsMap[order.product_id] && (
                   <Box sx={{ width: '150px', height: '150px' }}>
-                    <img src={productsMap[order.product_id].image} alt={order.product_name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                    <img 
+                      src={productsMap[order.product_id].image} 
+                      alt={order.product_name} 
+                      style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+                    />
                   </Box>
                 )}
                 <CardContent sx={{ flex: 1 }}>
