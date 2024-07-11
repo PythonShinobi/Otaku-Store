@@ -9,6 +9,16 @@ import Navbar from "../navbar/Navbar";
 import Footer from "../footer/Footer";
 import config from "../config";
 
+/**
+ * UserProfile Component
+ * 
+ * This component displays the user profile details and the user's order items.
+ * It fetches the orders and products from the backend and filters the orders 
+ * based on the logged-in user. The component also includes a date filter 
+ * functionality that allows users to filter their orders by the date they were 
+ * placed. The order cards are displayed in a rectangular format with the product 
+ * image and order details, including a human-readable order timestamp.
+ */
 const UserProfile = () => {
   const user = useUser(); // Use the useUser hook to get the current user.
   const [orders, setOrders] = useState([]); // State to hold order items.

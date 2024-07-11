@@ -8,8 +8,36 @@ import { useSelector, useDispatch } from "react-redux";
 import "./Checkout.css";
 import Navbar from "../navbar/Navbar";
 import { clearCart } from "../redux/action";
+import { useUser } from "../redux/hooks";
 import config from "../config";
 
+/**
+ * Checkout Component
+ * 
+ * This component handles the checkout process for users on the e-commerce platform. It allows users to enter their
+ * shipping information, including first name, last name, email, address, city, and postal code. The component also 
+ * ensures that the email entered matches the email of the currently logged-in user to avoid errors and confusion.
+ * 
+ * Features:
+ * - Displays a form for users to enter their shipping information.
+ * - Validates that the entered email matches the logged-in user's email.
+ * - Displays a success message upon successful order placement and redirects the user to the home page.
+ * - Displays an error message if the email entered is incorrect or if there is an issue placing the order.
+ * - Clears the cart upon successful order placement.
+ * 
+ * Dependencies:
+ * - React, useState, useNavigate from "react-router-dom"
+ * - Axios for making HTTP requests
+ * - MUI components: Container, Grid, TextField, Button, Typography, Card, CardContent
+ * - React-Redux for state management
+ * - A Navbar component
+ * - A Redux action for clearing the cart
+ * - Configuration for the server endpoint
+ * 
+ * Usage:
+ * - This component should be used within the context of a user who is logged in and ready to complete their purchase.
+ * - The component assumes that the cart items and user information are managed by a Redux store.
+ */
 const Checkout = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -22,11 +50,17 @@ const Checkout = () => {
   const [errorMessage, setErrorMessage] = useState("");  // State for error message.
 
   const cart = useSelector((state) => state.handleCart); // Get cart items from Redux store.
+  const user = useUser();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (email !== user?.email) {
+      setErrorMessage("The email entered does not match your account email.");
+      return;
+    }
     
     const orderData = {
       firstName,
