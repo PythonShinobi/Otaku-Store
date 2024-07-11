@@ -19,7 +19,7 @@ const Orders = async (req, res) => {
   try {
     // SQL query to get product_name, quantity, and price from the order_items table.
     const orderItemsQuery = `
-      SELECT user_id, product_id, product_name, quantity, price 
+      SELECT user_id, product_id, product_name, quantity, order_timestamp, price 
       FROM order_items;
     `;
 
