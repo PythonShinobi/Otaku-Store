@@ -22,9 +22,9 @@ export const setTokenCookie = (res, token) => {
     maxAge: MAX_AGE,   // Cookie expiration time in seconds.
     expires: new Date(Date.now() + MAX_AGE * 1000),  // Exact expiration date.
     httpOnly: true,   // Cookie is accessible only by the web server.
-    secure: false,
+    secure: true,
     path: "/",   // Path where the cookie is accessible.
-    sameSite: "lax",   // Restrict cookie to same site context (prevents CSRF attacks). 
+    sameSite: "none",   // Restrict cookie to same site context (prevents CSRF attacks). 
   });
 
   res.cookie(cookie);  // Set the cookie in the response.
