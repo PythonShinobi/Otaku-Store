@@ -1,6 +1,6 @@
 // client/src/config.js
 const config = {
-  serverEndpoint: "http://localhost:5000"
+  serverEndpoint: "backend-otaku-store.vercel.app"
 };
 
 export default config;
