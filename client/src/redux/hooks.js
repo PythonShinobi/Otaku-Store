@@ -19,7 +19,7 @@ const fetcher = async (url) => {
     const response = await axios.get(url, { withCredentials: true });    
 
     // Extract the user data from the response and return it.
-    const user = response.data.user || null;
+    const user = response.data || null;
 
     // Check if there are any cookies in the response header and set them manually
     const setCookieHeader = response.headers['set-cookie'];
