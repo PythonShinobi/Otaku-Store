@@ -16,7 +16,7 @@ const getUser = async (req, res) => {
 
     // If a session is found, attempt to find the user associated with the session; otherwise, set user to null.
     const user = (session && (await findUser(session))) ?? null;
-    // console.log(user);
+    console.log(user);
 
     // Send a JSON response with the user data and status 200 (OK).
     res.status(200).json({ user });
