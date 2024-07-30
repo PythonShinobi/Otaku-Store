@@ -53,6 +53,7 @@ export const useUser = ({ redirectTo, redirectIfFound } = {}) => {
   // Use the SWR hook to fetch user data from the /user endpoint.
   const { data, error } = useSWR(`${config.serverEndpoint}/user`, fetcher);
   const user = data?.user;  // Extract user data from the response.
+  console.log(user)
   const finished = Boolean(data);  // Check if the data fetching is complete.
   const hasUser = Boolean(user);  // Check if a user is present.  
 

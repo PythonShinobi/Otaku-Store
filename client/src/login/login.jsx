@@ -1,7 +1,7 @@
 // client/src/login/Login.jsx
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { mutate } from "swr"; // Import mutate
 
 import "./login.css";
 import { useUser } from "../redux/hooks.js";
@@ -17,9 +17,7 @@ const Login = () => {
 
   const [error, setError] = useState("");
 
-  const [success, setSuccess] = useState(""); // State variable for success message.
-
-  const navigate = useNavigate();
+  const [success, setSuccess] = useState(""); // State variable for success message.  
 
   // Function to handle form submission.
   const handleSubmit = async (e) => {
@@ -44,10 +42,7 @@ const Login = () => {
       if (response.status === 200) {
         setSuccess("Login successful"); // Set success message.
         setError(""); // Clear any previous errors.
-        // If login is successful, redirect to '/'.
-        setTimeout(() => {
-          navigate("/"); // Redirect after 0.5 seconds.
-        }, 500);        
+        mutate("/user"); // Trigger revalidation
       } else {
         // If login fails, throw an error with the response data.
         throw new Error(response.data.message);

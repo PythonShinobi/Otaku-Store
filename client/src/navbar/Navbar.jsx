@@ -33,7 +33,7 @@ const Navbar = () => {
       await axios.get(`${config.serverEndpoint}/logout`, { withCredentials: true });
       dispatch(clearCart());  // Clear items from the cart when user logs out.
       navigate('/'); // Redirect to home page after logout.
-      window.location.reload(); // Trigger a refresh.
+      window.location.href = "/"; // Redirect to home page immediately.
     } catch (error) {
       console.error('Error logging out:', error);
     }
